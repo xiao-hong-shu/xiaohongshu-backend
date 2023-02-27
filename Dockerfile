@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/java:11
+FROM openjdk
 
 
 ARG JAR_FILE=target/xiao-hong-shu-all-*-SNAPSHOT.jar
