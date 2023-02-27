@@ -8,4 +8,5 @@ class XiaoHongShuAllApplication
 
 fun main(args: Array<String>) {
     runApplication<XiaoHongShuAllApplication>(*args)
+    println("Hello World")
 }
