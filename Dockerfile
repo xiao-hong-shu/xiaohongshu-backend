@@ -1,8 +1,9 @@
 # Stage 1: Build the application
 FROM maven:3.6.3-jdk-11 AS build
-COPY . /app
 WORKDIR /app
+COPY pom.xml .
 RUN mvn dependency:go-offline
+COPY src/ /app/src/
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
