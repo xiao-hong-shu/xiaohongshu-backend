@@ -2,6 +2,7 @@
 FROM maven:3.6.3-jdk-11 AS build
 COPY . /app
 WORKDIR /app
+RUN mvn dependency:go-offline
 RUN mvn clean package -DskipTests
 
 # Stage 2: Run the application
