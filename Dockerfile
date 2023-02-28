@@ -1,12 +1,9 @@
-# Stage 1: Build the application
-FROM maven:3.6.3-jdk-11 AS build
-WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline
-COPY src/ /app/src/
-RUN mvn clean package -DskipTests
+FROM gcr.io/distroless/java:11
 
-# Stage 2: Run the application
-FROM openjdk:11-jre-slim
-COPY --from=build /app/target/*.jar /app.jar
-CMD ["java", "-jar", "/app.jar"]
+
+ARG JAR_FILE=target/xiao-hong-shu-all-*-SNAPSHOT.jar
+COPY ${JAR_FILE} app.jar
+
+EXPOSE 8080
+
+CMD ["java","-jar","/app.jar"]
