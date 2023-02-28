@@ -1,9 +1,10 @@
-FROM openjdk
+# Stage 1: Build the application
+FROM maven:3.6.3-jdk-11 AS build
+COPY . /app
+WORKDIR /app
+RUN mvn clean package -DskipTests
 
-
-ARG JAR_FILE=target/xiao-hong-shu-all-*-SNAPSHOT.jar
-COPY ${JAR_FILE} app.jar
-
-EXPOSE 8080
-
-CMD ["java","-jar","/app.jar"]
+# Stage 2: Run the application
+FROM openjdk:11-jre-slim
+COPY --from=build /app/target/*.jar /app.jar
+CMD ["java", "-jar", "/app.jar"]
